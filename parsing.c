@@ -3,19 +3,23 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int check_values(char *argument, int index)
+// int gen_failed_responce(int index)
+// {
+
+// }
+int check_values(char *arguments[], int i)
 {
-    char    *fields[8];
-    const char *fields[] = {
-        "coders",   // number_of_coders: how many coder threads (and dongles) exist
-        "burnout",  // time_to_burnout: max wait time (ms) before a coder burns out
-        "compile",  // time_to_compile: duration (ms) of the compiling phase
-        "debug",    // time_to_debug: duration (ms) of the debugging phase
-        "refactor", // time_to_refactor: duration (ms) of the refactoring phase
-        "required", // number_of_compiles_required: compiles needed per coder to succeed
-        "cooldown", // dongle_cooldown: rest time (ms) before a released dongle can be reused
-        "sched"     // scheduler: arbitration policy, must be "fifo" or "edf"
-    };
+    if (i == 1 || i == 2 || i == 6)
+    {   
+        if (atoi(arguments[i]) <= 0)
+            return (0);
+    }
+    if (i == 3 || i == 4 || i == 5 || i == 7)
+    {
+        if (atoi(arguments[i]) < 0)
+            return (0);
+    }
+    return (1);
 }
 
 int check_args(char *argv[])
@@ -23,23 +27,27 @@ int check_args(char *argv[])
     int     i;
     char    *arg;
     int     j;
+    
     i = 1;
-    while (i < 8)
+    while (i < 9)
     {
         j = 0;
-        if (i == 7 && (!memcmp(argv[i], "fifo", 4) || !memcmp(argv[i], "edf", 3)))
+        if (i == 8 && (!memcmp(argv[i], "fifo", 4) & !memcmp(argv[i], "edf", 3)))
             return (0);
-        else 
+        else if (i != 8) 
         {
             while (argv[i][j])
             {
-                if (!isdigit((char) argv[i][j]) && isprint((char) argv[i][j]))
-                    return (0);
+                if (!isdigit((char) argv[i][j]))
+                    return (0); 
                 j++;
             }
         }
+        if (!check_values(argv, i))
+            return (0);
         i++;
     }
+
     return (1);
 }
 
