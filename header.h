@@ -10,19 +10,19 @@
 #include <ctype.h>
 
 
-typedef pthread_mutex_t t_mtx;
+// typedef pthread_mutex_t t_mtx;
 typedef struct coders_table t_c_table;
 typedef struct coder    t_coder;
-int parsing(t_c_table *table, char *argv[]);
+int parsing(t_c_table *table, char *argv[], t_leak **g_tracker);
 
 typedef struct dongle {
-    t_mtx  dongle;  
+    pthread_mutex_t  dongle;  
     int     dongle_id;
     int    schedular[2];
 }           t_dongle;
 
 struct coder {
-    pthread_t thread;
+    pthread_t coder;
     int id;
     long compiles_count;
     long last_compile; // time from the last compile
@@ -44,3 +44,9 @@ struct coders_table {
     t_dongle* dongles;
     t_coder* coders;
 };
+
+typedef struct leaker
+{
+    void *space;
+    struct leaker *next_space;
+} t_leak;
