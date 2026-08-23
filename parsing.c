@@ -1,12 +1,5 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <ctype.h>
+#include "header.h"
 
-// int gen_failed_responce(int index)
-// {
-
-// }
 int check_values(char *arguments[], int i)
 {
     if (i == 1 || i == 2 || i == 6)
@@ -51,15 +44,22 @@ int check_args(char *argv[])
     return (1);
 }
 
-int main(int argc, char *argv[])
+void* fill_table(t_c_table *table, char *argv[])
 {
-    if (argc != 9)
-    {
-        printf("wrong arguments count, 8 args needed");
-        return 1;
-    }
+    table->number_of_coders = atoi(argv[1]);
+    table->burnout = atoi(argv[2]);
+    table->compile_time = atoi(argv[3]);
+    table->debug_time = atoi(argv[4]);
+    table->refactor_time = atoi(argv[5]);
+    table->required_compiles = atoi(argv[6]);
+    table->dongle_cooldown = atoi(argv[7]);
+    table->schedular = argv[8];
+}
+
+int parsing(t_c_table *table, char *argv[])
+{
     if (check_args(argv))
-        printf("valid values");
+        fill_table(table, argv);        
     else
-        printf("invalid values");
+        return (1);
 }   
