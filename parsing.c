@@ -56,7 +56,7 @@ void* fill_table(t_c_table *table, char *argv[])
     table->schedular = argv[8];
 }
 
-int parsing(t_c_table *table, char *argv[], t_leak **g_tracker)
+int parsing(t_c_table *table, char *argv[])
 {
     if (check_args(argv))
         fill_table(table, argv);        

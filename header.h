@@ -13,7 +13,8 @@
 // typedef pthread_mutex_t t_mtx;
 typedef struct coders_table t_c_table;
 typedef struct coder    t_coder;
-int parsing(t_c_table *table, char *argv[], t_leak **g_tracker);
+int parsing(t_c_table *table, char *argv[]);
+int init_utils(t_c_table* table);
 
 typedef struct dongle {
     pthread_mutex_t  dongle;  
