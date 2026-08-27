@@ -1,6 +1,8 @@
 #include "header.h"
 
-int fill_coders(t_c_table* table)
+
+
+int catch_dongles(t_c_table* table)
 {
     int i;
     t_coder* coder;
@@ -8,11 +10,7 @@ int fill_coders(t_c_table* table)
     i = -1;
     while (++i < table->number_of_coders)
     {
-        coder = &table->coders[i];
-        coder->id = i + 1;
-        coder->compiles_count = 0;
-        coder->table = table;
-        if (i + 1 % 2 != 0)
+        if (table->coders[i].id % 2 != 0)
         {            
             table->coders[i].left_dongle = table->dongles[i];
             if (i == 0)
@@ -25,6 +23,21 @@ int fill_coders(t_c_table* table)
             table->coders[i].right_dongle = table->dongles[i - 1];
             table->coders[i].left_dongle = table->dongles[i];
         }
+    }
+}
+
+int fill_coders(t_c_table* table)
+{
+    int i;
+    t_coder* coder;
+
+    i = -1;
+    while (++i < table->number_of_coders)
+    {
+        coder = &table->coders[i];
+        coder->id = i + 1;
+        coder->compiles_count = 0;
+        coder->table = table;
     }
 }
 
@@ -49,5 +62,6 @@ int init_utils(t_c_table* table)
     else {
         fill_dongles(table);
         fill_coders(table);
+        catch_dongles(table);
     }
 }
