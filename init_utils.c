@@ -9,16 +9,21 @@ int fill_coders(t_c_table* table)
     while (++i < table->number_of_coders)
     {
         coder = &table->coders[i];
-        coder->id = i;
+        coder->id = i + 1;
         coder->compiles_count = 0;
         coder->table = table;
-        if (i == 0)
+        if (i + 1 % 2 != 0)
+        {            
+            table->coders[i].left_dongle = table->dongles[i];
+            if (i == 0)
+                table->coders[i].right_dongle = table->dongles[table->number_of_coders - 1];
+            else
+                table->coders[i].right_dongle = table->dongles[i - 1];
+        }
+        else
         {
-            table->coders[i].left_dongle = table->dongles[table->number_of_coders - 1];
-            table->coders[i].right_dongle = table->dongles[i];
-        } else {
-            table->coders[i].left_dongle = table->dongles[i - 1];
-            table->coders[i].right_dongle = table->dongles[i];
+            table->coders[i].right_dongle = table->dongles[i - 1];
+            table->coders[i].left_dongle = table->dongles[i];
         }
     }
 }

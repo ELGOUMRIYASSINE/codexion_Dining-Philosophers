@@ -13,7 +13,6 @@ int main(int arc, char *argv[])
     } else {
         parsing(&table, argv);
         init_utils(&table);
-        // printf("ALl is filled\n");
         while (++i < table.number_of_coders)
         {
             printf("coder id: %d\n", table.coders[i].id);
