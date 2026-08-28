@@ -1,7 +1,6 @@
 #include "header.h"
 
 
-
 int catch_dongles(t_c_table* table)
 {
     int i;
@@ -57,6 +56,7 @@ int init_utils(t_c_table* table)
 {
     table->coders = malloc(sizeof(t_coder) * table->number_of_coders);
     table->dongles = malloc(sizeof(t_dongle) * table->number_of_coders);
+    table->all_coders_on = false;
     if (!table->dongles || !table->coders)
         return (2);
     else {
