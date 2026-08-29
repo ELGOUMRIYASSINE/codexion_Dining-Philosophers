@@ -40,7 +40,7 @@ struct coders_table {
     long refactor_time;
     long required_compiles;
     long dongle_cooldown;
-    long all_coders_on;
+    bool all_coders_on;
     char* schedular;
     bool end;
     t_mtx table_mutex;

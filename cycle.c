@@ -11,7 +11,7 @@ void* coders_simulation(void *coder_data)
 
     coder = (t_coder *)coder_data;
     wait_all_coders(coder->table);
-    printf("I'm coder %d", coder->id);
+    printf("%d coder finished", coder->id);
     return (NULL);
 
 }
@@ -27,8 +27,11 @@ void cycle_on(t_c_table* table)
         while (++i < table->number_of_coders)
         {
             pthread_create(&table->coders[i].coder, NULL, &coders_simulation, &table->coders[i]);
+            printf("coder %d created\n", table->coders[i].id);
         }
     }
+    // printf("set bool\n");
     // when all corders is ready
     set_bool(&table->table_mutex, &table->all_coders_on, true);
+    printf("%d", table->all_coders_on);
 }
