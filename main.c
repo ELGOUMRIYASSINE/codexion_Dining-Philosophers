@@ -13,7 +13,7 @@ int main(int arc, char *argv[])
     } else {
         parsing(&table, argv);
         init_utils(&table);
-        cycle_on();
+        cycle_on(&table);
         // while (++i < table.number_of_coders)
         // {
         //     printf("coder id: %d\n", table.coders[i].id);
