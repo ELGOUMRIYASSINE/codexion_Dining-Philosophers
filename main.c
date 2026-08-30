@@ -13,6 +13,7 @@ int main(int arc, char *argv[])
     } else {
         parsing(&table, argv);
         init_utils(&table);
+        pthread_mutex_init(&table.table_mutex, NULL);
         cycle_on(&table);
         // while (++i < table.number_of_coders)
         // {
