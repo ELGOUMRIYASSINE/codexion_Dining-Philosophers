@@ -22,15 +22,25 @@ typedef struct dongle {
     int    schedular[2];
 }           t_dongle;
 
+typedef enum timer {
+    SECOND,
+    MILIS,
+    MICROS
+}      t_time;
+
 struct coder {
     pthread_t coder;
     int id;
     long compiles_count;
     long last_compile; // time from the last compile
+    t_mtx coder_mutex; // for monitor
+    bool finished;
     t_dongle left_dongle;
     t_dongle right_dongle;
     t_c_table* table; 
 };
+
+
 
 struct coders_table {   
     long number_of_coders;
@@ -41,9 +51,11 @@ struct coders_table {
     long required_compiles;
     long dongle_cooldown;
     bool all_coders_on;
+    long start_time;
     char* schedular;
     bool end;
     t_mtx table_mutex;
+    t_mtx log_mutex;
     t_dongle* dongles;
     t_coder* coders;
 };
@@ -62,4 +74,8 @@ bool get_bool(t_mtx *mutex, bool* value);
 void set_bool(t_mtx *mutex, bool *dest, bool value);
 void wait_all_coders(t_c_table *table);
 void cycle_on(t_c_table* table);
+long get_time(t_time time_type);
+void    t_usleep(unsigned long ms, t_c_table *data);
+void print_log(t_coder *coder, t_c_table *data, char *state);
+void compile(t_coder *coder, t_c_table *table);
 

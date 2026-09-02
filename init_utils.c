@@ -37,6 +37,7 @@ int fill_coders(t_c_table* table)
         coder->id = i + 1;
         coder->compiles_count = 0;
         coder->table = table;
+        pthread_mutex_init(&coder->coder_mutex, NULL);
     }
 }
 
