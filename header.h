@@ -19,6 +19,7 @@ int init_utils(t_c_table* table);
 typedef struct dongle {
     pthread_mutex_t  dongle;  
     int     dongle_id;
+    bool    available;
     int    schedular[2];
 }           t_dongle;
 
@@ -35,8 +36,8 @@ struct coder {
     long last_compile; // time from the last compile
     t_mtx coder_mutex; // for monitor
     bool finished;
-    t_dongle left_dongle;
-    t_dongle right_dongle;
+    t_dongle *first_dongle;
+    t_dongle *second_dongle;
     t_c_table* table; 
 };
 

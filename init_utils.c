@@ -11,16 +11,16 @@ int catch_dongles(t_c_table* table)
     {
         if (table->coders[i].id % 2 != 0)
         {            
-            table->coders[i].left_dongle = table->dongles[i];
+            table->coders[i].first_dongle = &table->dongles[i];
             if (i == 0)
-                table->coders[i].right_dongle = table->dongles[table->number_of_coders - 1];
+                table->coders[i].second_dongle = &table->dongles[table->number_of_coders - 1];
             else
-                table->coders[i].right_dongle = table->dongles[i - 1];
+                table->coders[i].second_dongle = &table->dongles[i - 1];
         }
         else
         {
-            table->coders[i].right_dongle = table->dongles[i - 1];
-            table->coders[i].left_dongle = table->dongles[i];
+            table->coders[i].first_dongle = &table->dongles[i - 1];
+            table->coders[i].second_dongle = &table->dongles[i];
         }
     }
 }
