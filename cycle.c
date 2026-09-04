@@ -5,6 +5,26 @@ void wait_all_coders(t_c_table *table)
     while (!get_bool(&table->table_mutex, &table->all_coders_on));
 }
 
+void* monitor_simulation(void *table_data)
+{
+    int i;
+    t_coder *coder;
+    t_c_table *table = (t_c_table *) table_data;
+    while (!get_end_simulation(table))
+    {
+        // printf("cc\n");
+        i = -1;
+        while (++i < table->number_of_coders)
+        {
+            if (!get_bool(&table->table_mutex, &table->coders[i].finished))
+                break;
+        }
+        if (i == table->number_of_coders)
+            set_bool(&table->table_mutex, &table->end, true);
+    }
+    return (NULL);
+}
+
 void* coders_simulation(void *coder_data)
 {
     t_coder* coder;
@@ -41,9 +61,12 @@ void cycle_on(t_c_table* table)
     int i;
 
     i = -1;
+    pthread_t monitor_thread;
     if (table->number_of_coders == 1) {
         return;
     } else {
+        // create  the monitor thread
+        pthread_create(&monitor_thread, NULL, &monitor_simulation, table);
         while (++i < table->number_of_coders)
             pthread_create(&table->coders[i].coder, NULL, &coders_simulation, &table->coders[i]);
     }

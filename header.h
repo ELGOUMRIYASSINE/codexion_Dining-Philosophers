@@ -43,8 +43,6 @@ struct coder {
     t_c_table* table; 
 };
 
-
-
 struct coders_table {   
     long number_of_coders;
     long burnout;
@@ -83,4 +81,5 @@ void print_log(t_coder *coder, t_c_table *data, char *state);
 void compile(t_coder *coder, t_c_table *table);
 void aquire_dongles(t_dongle *coder_dongle, t_c_table *table);
 bool cold_elapsed(t_dongle *dongle, t_c_table *table);
+void* monitor_simulation(void *table_data);
 
