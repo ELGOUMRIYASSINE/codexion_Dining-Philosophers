@@ -12,7 +12,6 @@ void* coders_simulation(void *coder_data)
     wait_all_coders(coder->table);
 
     // set last compile time
-
     // start simulation
     while (!get_end_simulation(coder->table))
     {

@@ -15,11 +15,5 @@ int main(int arc, char *argv[])
         init_utils(&table);
         pthread_mutex_init(&table.table_mutex, NULL);
         cycle_on(&table);
-        // while (++i < table.number_of_coders)
-        // {
-        //     printf("coder id: %d\n", table.coders[i].id);
-        //     printf("left dongle: %d\n", table.coders[i].left_dongle.dongle_id);
-        //     printf("right dongle: %d\n", table.coders[i].right_dongle.dongle_id);
-        // }
     }
 }

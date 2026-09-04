@@ -20,6 +20,8 @@ typedef struct dongle {
     pthread_mutex_t  dongle;  
     int     dongle_id;
     bool    available;
+    long    last_usage;
+    pthread_cond_t cond;
     int    schedular[2];
 }           t_dongle;
 
@@ -79,4 +81,6 @@ long get_time(t_time time_type);
 void    t_usleep(unsigned long ms, t_c_table *data);
 void print_log(t_coder *coder, t_c_table *data, char *state);
 void compile(t_coder *coder, t_c_table *table);
+void aquire_dongles(t_dongle *coder_dongle, t_c_table *table);
+bool cold_elapsed(t_dongle *dongle, t_c_table *table);
 

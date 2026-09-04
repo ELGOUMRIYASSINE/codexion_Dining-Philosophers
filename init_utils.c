@@ -49,7 +49,10 @@ int fill_dongles(t_c_table* table)
     while (++i < table->number_of_coders)
     {
         pthread_mutex_init(&table->dongles[i].dongle, NULL);
+        pthread_cond_init(&table->dongles[i].cond, NULL);
         table->dongles[i].dongle_id = i;
+        table->dongles[i].available = true;
+        table->dongles[i].last_usage = 0;
     } 
 }
 
