@@ -4,27 +4,19 @@
 #include <time.h>
 
 
-long get_time_ms(void)
-{
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-}
-
 int main()
 {
+    int test[2];
 
-    long start = get_time_ms();
+    
+    test[0] = 0;
 
-    while (1)
+    if (test[0])
     {
-        long now = get_time_ms();
-        if (now - start >= 10)
-        {
-            printf("10ms have passed!\n");
-            break;
-        }    
+        printf("empty for now\n");
+        printf("%d", test[0]);
+        test[0] = 1;
+        printf("filled\n");
+        printf("%d", test[0]);
     }
-    return (0);
 }
-
